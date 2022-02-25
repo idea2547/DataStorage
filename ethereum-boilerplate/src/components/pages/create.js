@@ -324,6 +324,27 @@ export default function Uploader(_isAuthenticated) {
 
   const handleSubmit = async () => {
     console.log("FORM INPUT:");
+    <Modal
+  id="regular"
+  onCancel={function noRefCheck(){}}
+  onCloseButtonPressed={function noRefCheck(){}}
+  onOk={function noRefCheck(){}}
+  title="Confirm"
+>
+  <div
+    style={{
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
+    }}
+  >
+   
+    <p>
+      Uploading file , please wait.... Metamask will pop-up soon after file have completely upload.
+    </p>
+  </div>
+    </Modal>
     // stop interactions with buttons
     setLoading(true);
     // get how many tokens already circulate before minting next for ref
@@ -354,7 +375,7 @@ export default function Uploader(_isAuthenticated) {
                     Verify metadata here <ExternalLinkIcon mx="2px" /> Do not leaving this page until your data was save.
                   </Link>
                   <span className="act_list_date">
-                             10/07/2021, 12:40
+                             
                  </span>
               </div>
           </li>
@@ -835,13 +856,9 @@ export default function Uploader(_isAuthenticated) {
                   
       <section className='container'>
 
-      
-      
-      
-
       <div className="row">
         <div className="col-lg-7 offset-lg-1 mb-5">
-            <form id="form-create-item" className="form-border" action="#" onSubmit={handleSubmit}>
+            <form id="form-create-item" className="form-border" action="#" onSubmit={handleSubmit} >
                 <Box mb={2}>
                   {showMessage && !files[0] ? ShowLocationMessage : ""}
                   {showErrorMessage ? errorMarkup(errorMessage) : ""}

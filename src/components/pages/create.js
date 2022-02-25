@@ -7,7 +7,7 @@ import React, {
   useRef, 
 } from "react";
 import Moralis from "moralis";
-import { Modal } from 'web3uikit';
+import { Loading, Modal } from 'web3uikit';
 import {
   Alert,
   AlertIcon,
@@ -324,27 +324,8 @@ export default function Uploader(_isAuthenticated) {
 
   const handleSubmit = async () => {
     console.log("FORM INPUT:");
-    <Modal
-  id="regular"
-  onCancel={function noRefCheck(){}}
-  onCloseButtonPressed={function noRefCheck(){}}
-  onOk={function noRefCheck(){}}
-  title="Confirm"
->
-  <div
-    style={{
-      alignItems: 'center',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center'
-    }}
-  >
-   
-    <p>
-      Uploading file , please wait.... Metamask will pop-up soon after file have completely upload.
-    </p>
-  </div>
-    </Modal>
+
+    
     // stop interactions with buttons
     setLoading(true);
     // get how many tokens already circulate before minting next for ref
@@ -372,7 +353,7 @@ export default function Uploader(_isAuthenticated) {
                 <div className="act_list_text">
                   <h4>IPFS upload and mint complete.</h4>
                   <Link href={IPFSLinkImage} isExternal>
-                    Verify metadata here <ExternalLinkIcon mx="2px" /> Do not leaving this page until your data was save.
+                    Verify metadata here. <ExternalLinkIcon mx="2px" />
                   </Link>
                   <span className="act_list_date">
                              
@@ -550,9 +531,9 @@ export default function Uploader(_isAuthenticated) {
       id: _id,
       date: dateTime,
       attributes: {
-        damage: _values.damage ? _values.damage : 0,
+/*         damage: _values.damage ? _values.damage : 0,
         power: _values.power ? _values.power : 0,
-        endurance: _values.endurance ? _values.endurance : 0,
+        endurance: _values.endurance ? _values.endurance : 0, */
       },
     };
     return tempMetadata;
@@ -840,6 +821,58 @@ export default function Uploader(_isAuthenticated) {
     </Box> */
     <div>
     <GlobalStyles/>
+    <div>{loading ? <Modal
+  id="regular"
+  isOkDisabled
+  isCancelDisabled
+  onCancel={function noRefCheck(){}}
+  onCloseButtonPressed={function noRefCheck(){}}
+  onOk={function noRefCheck(){}}
+  okButtonColor="blue"
+  title="Loading"
+>
+  <div
+    style={{
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
+    }}
+  >
+   
+    <p>
+      Uploading file , please wait.... Metamask will pop-up soon for minting NFTs.
+    </p>
+  </div>
+    </Modal> : ""}</div>
+    <div>
+      {showMessage && !files[0] ? <Modal
+  id="regular"
+  onCancel={function noRefCheck(){}}
+  onCloseButtonPressed={function noRefCheck(){}}
+  onOk={function noRefCheck(){}}
+  okButtonColor="blue"
+  title="Successful Upload"
+>
+  <div
+    style={{
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
+    }}
+  >
+   
+    <p>
+      <h4>IPFS upload and mint complete.</h4>
+      <Link href={IPFSLinkImage} isExternal>
+                    Verify metadata here. <ExternalLinkIcon mx="2px" /> 
+      </Link>
+    </p>
+  </div>
+    </Modal> : ""}
+    </div>
+    
       
 
       <section className='jumbotron breadcumb no-bg' style={{backgroundImage: `url(${'./img/background/subheader.jpg'})`}}>

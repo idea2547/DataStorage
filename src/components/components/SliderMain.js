@@ -42,7 +42,7 @@ const slidermain= () => (
               </Reveal>
               <div className="spacer-10"></div>
               <Reveal className='onStep' keyframes={fadeInUp} delay={800} duration={900} triggerOnce>
-              <span onClick={()=> window.open("/create?item_title=&item_desc=&item_price=&item_royalties=#", "_self")} className="btn-main lead">Create</span>
+              <span onClick={()=> window.open("/create", "_self")} className="btn-main lead">Create</span>
               <div className="mb-sm-30"></div>
               </Reveal>
           </div>

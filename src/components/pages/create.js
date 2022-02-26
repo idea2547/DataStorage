@@ -322,7 +322,8 @@ export default function Uploader(_isAuthenticated) {
     });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     console.log("FORM INPUT:");
 
     

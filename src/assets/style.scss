@@ -106,6 +106,17 @@ section{
   }
 }
 
+
+.header_storage{
+  display: flex;
+  height: 60px;
+  width: 130vw;
+}
+
+.header_storage>div{
+  padding: 30px;
+}
+
 .wraper{
   padding: 0;
   display: block;
@@ -4132,6 +4143,24 @@ img.img-rounded{
     }
   }
 }
+
+.header_icons{
+  display: flex;
+  align-items: right;
+  margin-right: auto;
+}
+
+.header_icons MuiSvgIcon-root {
+  font-size: 30px;
+
+
+}
+
+.header_icons>span{
+  margin-right: auto;
+}
+
+
 /*** media all ***/
 @media only screen and (max-width: 1199px) {
   .item-dropdown{
@@ -4192,8 +4221,8 @@ img.img-rounded{
         display: none;
   }
   .container {
-        padding-left: 30px;
-        padding-right: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
   }
   .author_list {
     column-count: 1;

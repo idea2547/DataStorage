@@ -5,6 +5,8 @@ import { Link } from '@reach/router';
 import { useMoralis } from "react-moralis";
 import Account from "components/Account/Account";
 import useOnclickOutside from "react-cool-onclickoutside";
+import { flexbox } from "@chakra-ui/react";
+import '../../styles/Header.css';
 
 const styles = {
   content: {
@@ -365,13 +367,16 @@ const Header= function() {
                 </Breakpoint>
               </BreakpointProvider>
 
-              <div className='mainside'>
-                <div onClick={isAuthenticated ? logout : authenticate} className="btn-main">Connect Wallet</div>
-              </div>
+              
               <div className='profile_wallet'>
                 <Account/>
               </div>
-              
+              <div className='mainside'>
+                <div onClick={isAuthenticated ? logout : authenticate} className="btn-main">Connect Wallet</div>
+              </div>
+              <div className='header_icons'>
+                <img src="" alt="User Photo"/>
+              </div>
               
                   
       </div>

@@ -5,7 +5,7 @@ export default class ScrollToTop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      is_visible: false
+      is_visible: true
     };
   }
 
@@ -22,7 +22,7 @@ export default class ScrollToTop extends Component {
         is_visible: true
       });
     } else { this.setState({
-        is_visible: false
+        is_visible: true
       });
     }
   }

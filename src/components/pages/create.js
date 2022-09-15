@@ -25,6 +25,7 @@ import {
   FormErrorMessage,
   FormLabel,
 } from "@chakra-ui/react";
+import Sidebar from '../../sidebar';
 import { Formik, Field, Form } from "formik";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 //import { Moralis } from "moralis";
@@ -683,6 +684,7 @@ export default function Uploader(_isAuthenticated) {
   }
 
   return (
+    
     /* <Box className="container text-center mt-5">
       <Heading className="h1" mb={2}>
         NFT Character Generator
@@ -821,6 +823,7 @@ export default function Uploader(_isAuthenticated) {
       </Formik>
     </Box> */
     <div>
+      
     <GlobalStyles/>
     <div>{loading ? <Modal
   id="regular"

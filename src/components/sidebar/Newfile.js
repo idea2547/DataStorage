@@ -1,16 +1,18 @@
 import React, {useState} from 'react'
 import AddIcon from '@material-ui/icons/Add';
 // Import the NFTStorage class and File constructor from the 'nft.storage' package
-import { NFTStorage, File } from 'nft.storage'
+import { NFTStorage, File, Blob } from 'nft.storage'
 // The 'mime' npm package helps us set the correct file type on our File objects
 import mime from 'mime'
-
+import path from 'path'
+import fs from 'fs'
 import '../../styles/NewFile.css';
 /* import {db, storage} from '../../firebase'; */
 import firebase from 'firebase/compat/app';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import axios from 'axios';
 
 // Paste your NFT.Storage API key into the quotes:
 const NFT_STORAGE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDBkQjQ3NjRFNDk1YkNFNzZFNDlERjM0QUQzNWZDOEZmZEViY0MzNzkiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2MjYxNjc3NTk4MCwibmFtZSI6IlJ1bXVDIn0.LZ74hko8tEU5W3BqFIkWmWBcLk_P4SJJ7HadOAlHTOI'
@@ -34,6 +36,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+async function fileFromPath(filePath) {
+  const content = await fs.promises.readFile(filePath)
+  const type = mime.getType(filePath)
+  return new File([content], path.basename(filePath), { type })
+}
+
 const Newfile = () => {
 
   const classes = useStyles();
@@ -53,13 +61,94 @@ const Newfile = () => {
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
-        setFile(e.target.files[0])
+      setFile(e.target.files[0]);
+        
+      console.log(e.target.files[0].name);
+      console.log(file)
     }
   }
 
 
-  const handleUpload = () => {
-    /* setUploading(true)
+  const handleUpload = async () => {
+    setUploading(true)
+    const type = mime.getType(file.name)
+
+
+
+    const nftstorage = new NFTStorage({ token: NFT_STORAGE_KEY })
+
+    
+
+    /* // call client.store, passing in the image & metadata
+    return nftstorage.store({
+      image: new File([fs.promises.readFile(file)], file.name, { type }),
+      name: '12312dsdgddd3',
+      description: 'test',
+    }).then(result => {
+      console.log(result)
+      setUploading(false)
+      setOpen(false)
+      setFile(null)
+    }) */
+
+    try {
+      //Upload NFT to IPFS & Filecoin
+      const metadata = await nftstorage.store({
+          name: 'Harmony NFT collection1',
+          description: 'This is a Harmony NFT collenction stored on IPFS & Filecoin.',
+          image: file,
+      }).then(result => {
+        console.log(result)
+        setUploading(false)
+        setOpen(false)
+        setFile(null)
+      })
+      return metadata;
+
+    } catch (error) {
+      console.log("Could not save NFT to NFT.Storage - Aborted minting.");
+      console.log(error);
+    }
+
+    
+  }
+
+  return (
+    <div className='newFile'>
+        <div className='newFile__container' onClick={handleOpen}>
+            <AddIcon/>
+            <p>New</p>
+        </div>
+        <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+        >
+          <div style={modalStyle} className={classes.paper}>
+            <p>Select files you want to upload!</p>
+              {
+                
+                  uploading ? (
+                      <p>Uploading...</p>
+                  ) : (
+                      <>
+                        <input type="file" onChange={handleChange} />
+                        <button onClick={handleUpload}>Upload</button>
+                      </>
+                          
+                      )
+              }
+          </div>
+
+        </Modal>
+    </div>
+  )
+}
+
+export default Newfile
+
+/* 
 
     storage.ref(`files/${file.name}`).put(file).then(snapshot => {
         console.log(snapshot)
@@ -84,37 +173,20 @@ const Newfile = () => {
         })
 
     }) */
-  }
 
-  return (
-    <div className='newFile'>
-        <div className='newFile__container' onClick={handleOpen}>
-            <AddIcon/>
-            <p>New</p>
-        </div>
-        <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-        >
-          <div style={modalStyle} className={classes.paper}>
-            <p>Select files you want to upload!</p>
-              {
-                  uploading ? (
-                      <p>Uploading...</p>
-                  ) : (
-                          <>
-                            <input type="file" onChange={handleChange} />
-                            <button onClick={handleUpload}>Upload</button>
-                          </>
-                      )
-              }
-          </div>
+    /* const config = {
+      headers: {
+        Authorization: NFT_STORAGE_KEY,
+        "Content-Type": "application/car",
+      },
+    };
+    axios
+      .post("https://api.nft.storage/upload", file, config)
+      .then((res) => {
+        console.log(res)
+        setUploading(false)
+        setOpen(false)
+        setFile(null)
 
-        </Modal>
-    </div>
-  )
-}
-
-export default Newfile
+      })
+      .catch((err) => console.log(err)); */

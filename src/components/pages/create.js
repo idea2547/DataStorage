@@ -26,6 +26,8 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import Sidebar from '../../components/sidebar';
+import FilesView from '../../components/filesView/FilesView'
+import '../../App.css'
 import { Formik, Field, Form } from "formik";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 //import { Moralis } from "moralis";
@@ -826,8 +828,13 @@ export default function Uploader(_isAuthenticated) {
       </Formik>
     </Box> */
     <div>
-      <Sidebar/>
+      <div className="app__main">
+        <Sidebar/>
+        <FilesView />
+
+      </div>
       
+
     <GlobalStyles/>
     <div>{loading ? <Modal
   id="regular"
@@ -899,84 +906,7 @@ export default function Uploader(_isAuthenticated) {
 
       <div className="row">
         <div className="col-lg-7 offset-lg-1 mb-5">
-            <form id="form-create-item" className="form-border" action="#" onSubmit={handleSubmit} >
-                <Box mb={2}>
-                  {showMessage && !files[0] ? ShowLocationMessage : ""}
-                  {showErrorMessage ? errorMarkup(errorMessage) : ""}
-                </Box>
-        
-                <div className="field-set">
-                    <h5>Upload file</h5>
-                    <Center mb={2}>
-                      <aside>{thumbs}</aside>
-                    </Center>
-                    <Box {...getRootProps({ style })} mb={2}>
-                      <InputGroup size="md">
-                        <FormLabel htmlFor="name">Image</FormLabel>
-                        <Input {...getInputProps()} />
-                      </InputGroup>
-                      {!isDragActive && "Click here or drop a file to upload!"}
-                      {isDragActive && !isDragReject && "Drop it like it's hot!"}
-                      {isDragReject && "File type not accepted, sorry!"}
-                      {isFileTooLarge && (
-                        <Box className="text-danger mt-2">File is too large.</Box>
-                      )}
-                    </Box>
-
-                    {/* <div className="d-create-file">
-                        <p id="file_name">PNG, JPG, GIF, WEBP or MP4. Max 200mb.</p>
-                        
-                        
-                        <div className='browse'>
-                          <input type="button" id="get_file" className="btn-main" value="Browse"/>
-                          <input id='upload_file' type="file" onChange={onInputFileChange}/>
-                        </div>
-                        
-                    </div> */}
-
-                    <div className="spacer-single"></div>
-
-                    <h5>Title</h5>
-                    <input type="text" name="item_title" id="item_title" className="form-control" placeholder="" />
-
-                    <div className="spacer-10"></div>
-
-                    <h5>Description</h5>
-                    <textarea data-autoresize name="item_desc" id="item_desc" className="form-control" placeholder=""></textarea>
-
-                    <div className="spacer-10"></div>
-
-                    <h5>Author</h5>
-                    <input type="text" name="item_price" id="item_price" className="form-control" placeholder="" />
-
-                    <div className="spacer-10"></div>
-
-                    <h5>Royalties</h5>
-                    <input type="text" name="item_royalties" id="item_royalties" className="form-control" placeholder="suggested: 0, 10%, 20%, 30%. Maximum is 70%" />
-
-                    <div className="spacer-10"></div>
-                    {/* <Button onClick={callContractF}/> */}
-                    <input type="submit" id="files" isFullWidth={true} isLoading={loading} isDisabled={files[0] ? false : true} data-file={files} textAlign="center" className="btn-main" value="Upload"/>
-                    {/* <Button
-                      type="submit"
-                      id="files"
-                      colorScheme="teal"
-                      isFullWidth={true}
-                      isLoading={loading}
-                      isDisabled={files[0] ? false : true}
-                      data-file={files}
-                            type="submit"
-                      textAlign="center"
-                    >
-                            Upload
-                    </Button>       
-                     */}
-              
-              
-              
-              
-                </div>
-            </form>
+            
         </div>
 
                                                  
@@ -1118,3 +1048,5 @@ render() {
    );
   }
 } */
+
+

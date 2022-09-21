@@ -6,10 +6,11 @@ import CarouselNewRedux from '../components/CarouselNewRedux';
 import AuthorListRedux from '../components/AuthorListRedux';
 import Catgor from '../components/Catgor';
 import Footer from '../components/footer';
-
+import Header from '../../components/menu/header';
 
 const home= () => (
   <div>
+    <Header/>
       <section className="jumbotron breadcumb no-bg h-vh" style={{backgroundImage: `url(${'./img/bg-shape-1.jpg'})`}}>
          <SliderMain/>
       </section>

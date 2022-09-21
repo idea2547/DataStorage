@@ -82,7 +82,6 @@ const App= ({ isServerInfo }) => {
   return (
   <div className="wraper">
   <GlobalStyles />
-    {/* <Header/> */}
       <PosedRouter>
       <ScrollTop path="/">
         <Home exact path="/">

@@ -7,9 +7,9 @@ import mime from 'mime'
 import path from 'path'
 import fs from 'fs'
 import '../../styles/NewFile.css';
-/* import {db, storage} from '../../firebase'; */
+import {db, auth} from '../../firebase';
 import firebase from 'firebase/compat/app';
-
+import { doc, setDoc, addDoc, collection} from "firebase/firestore"
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import axios from 'axios';
@@ -71,8 +71,34 @@ const Newfile = () => {
 
   const handleUpload = async () => {
     setUploading(true)
-    const type = mime.getType(file.name)
 
+    /* const config = {
+      headers: {
+        Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDBkQjQ3NjRFNDk1YkNFNzZFNDlERjM0QUQzNWZDOEZmZEViY0MzNzkiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY2MjYxNjc3NTk4MCwibmFtZSI6IlJ1bXVDIn0.LZ74hko8tEU5W3BqFIkWmWBcLk_P4SJJ7HadOAlHTOI',
+        "Content-Type": "application/car",
+      },
+    };
+    axios
+      .post("https://api.nft.storage/upload", file, {
+        headers: {
+          Authorization: NFT_STORAGE_KEY,
+          'Content-Type': "application/car",
+        },
+      })
+      .then((res) => {
+        console.log(res.locals.user);
+        console.log(res)
+        setUploading(false)
+        setOpen(false)
+        setFile(null)
+
+      })
+      .catch((err) => console.log(err)); */
+
+      
+    const type = mime.getType(file.name)
+    
+    const dbRef = collection(db, "myFiles");
 
 
     const nftstorage = new NFTStorage({ token: NFT_STORAGE_KEY })
@@ -94,14 +120,20 @@ const Newfile = () => {
     try {
       //Upload NFT to IPFS & Filecoin
       const metadata = await nftstorage.store({
-          name: 'Harmony NFT collection1',
+          name: 'Harmony NFT collesctxiodn1',
           description: 'This is a Harmony NFT collenction stored on IPFS & Filecoin.',
-          image: file,
-      }).then(result => {
+          image: new File([file], file.name, {type}),
+      }).then(result => { 
+        addDoc(dbRef, {
+          timestamp: "Raja Tamil",
+          caption: "Canadte",
+          fileUrl: 'asd',
+          size: '-',
+        });
         console.log(result)
+        console.log(metadata.url)
         setUploading(false)
         setOpen(false)
-        setFile(null)
       })
       return metadata;
 

@@ -18,9 +18,14 @@ import QuickStart from "components/QuickStart";
 import { Provider } from 'react-redux'
 import store from './store';
 
+/* 
+
+REACT_APP_MORALIS_SERVER_URL = 
+REACT_APP_MASTER_KEY= '7qMYwVgUDOewid25U6Iz8ymzDRKiyxnQpIaJtzJW'
+ */
 /** Get your free Moralis Account https://moralis.io/ */
-const APP_ID = process.env.REACT_APP_MORALIS_APPLICATION_ID;
-const SERVER_URL = process.env.REACT_APP_MORALIS_SERVER_URL;
+const APP_ID = 'loJ9liuFQuynIzZbJ3Q3ivheUf7VFKmH11jxI1yA';
+const SERVER_URL = 'https://0eg1yarul90j.usemoralis.com:2053/server';
 console.log(process.env.REACT_APP_MORALIS_APPLICATION_ID)
 console.log(process.env.REACT_APP_MORALIS_SERVER_URL)
 

@@ -29,7 +29,7 @@ const slidermain= () => (
           <div className="col-md-6">
               <div className="spacer-single"></div>
               <Reveal className='onStep' keyframes={fadeInUp} delay={0} duration={600} triggerOnce>
-              <h6 className=""><span className="text-uppercase color">Decentralized, secure your data</span></h6>
+              <h6 className=""><span className="text-uppercase color">DStore</span></h6>
               </Reveal>
               <div className="spacer-10"></div>
               <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={600} triggerOnce>
@@ -37,7 +37,7 @@ const slidermain= () => (
               </Reveal>
               <Reveal className='onStep' keyframes={fadeInUp} delay={600} duration={600} triggerOnce>
               <p className=" lead">
-              File aren’t stored in centralized data centers— instead, they're encrypted, split into pieces, and distributed on a global cloud network. Click the Button and start upload your file now.
+              File aren’t stored in centralized data centers— instead, they're encrypted, split into pieces, and distributed on a global cloud network such as IPFS. Click the create button and start upload your file now.
               </p>
               </Reveal>
               <div className="spacer-10"></div>

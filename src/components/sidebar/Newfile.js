@@ -127,7 +127,7 @@ const Newfile = () => {
         addDoc(dbRef, {
           timestamp: "-",
           caption: file.name,
-          fileUrl: `https://ipfs.io/ipfs/${result.data.image.href}/${file.name}`,
+          fileUrl: `https://ipfs.io/ipfs/${result.data.image.href.slice(6)}`,
           size: '-',
         });
         console.log(result)

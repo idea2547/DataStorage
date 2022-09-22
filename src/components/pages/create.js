@@ -26,7 +26,9 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import Sidebar from '../../components/sidebar';
-import FilesView from '../../components/filesView/FilesView'
+import FilesView from '../../components/filesView/FilesView';
+import { auth } from '../../firebase.js';
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import '../../App.css'
 import { Formik, Field, Form } from "formik";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
@@ -113,6 +115,7 @@ const rejectStyle = {
 
 export default function Uploader(_isAuthenticated) {
   const { authenticate, isAuthenticated, account, chainId, logout } = useMoralis();
+  const [user, setUser] = useState() 
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showMessage, setMessage] = useState(false);
@@ -125,6 +128,19 @@ export default function Uploader(_isAuthenticated) {
     power: "",
     endurance: "", */
   });
+
+  const handleLogin = () => {
+    if(!user) {
+      const provider = new GoogleAuthProvider();
+      signInWithPopup(auth, provider).then((result) => {
+        setUser(result.user)
+        
+      })
+
+    }
+    console.log(user.uid)
+    
+  }
 
   const popUpLoading = 
                   <Modal
@@ -828,11 +844,32 @@ export default function Uploader(_isAuthenticated) {
       </Formik>
     </Box> */
     <div>
-      <div className="app__main">
-        <Sidebar/>
-        <FilesView />
+      <div className="app">
+        {
+          user ? (
+            <>
+              
+              <div className="app__main">
+                <Sidebar />
+                <FilesView />
+              </div>
+            </>
+          ) : (
+              <div className='app__login'>
+                {/* <img src={} alt="Google Drive" /> */}
+                <button onClick={handleLogin}>Log in to DStore with Google</button>
+              </div>
+            )
+        }
+      
+
+
+
+
+        
 
       </div>
+      
       
 
     <GlobalStyles/>

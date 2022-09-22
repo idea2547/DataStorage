@@ -138,7 +138,7 @@ export default function Uploader(_isAuthenticated) {
       })
 
     }
-    console.log(user.uid)
+    
     
   }
 

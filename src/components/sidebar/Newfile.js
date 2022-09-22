@@ -122,25 +122,28 @@ const Newfile = () => {
       const metadata = await nftstorage.store({
           name: 'Harmony NFT collesctxiodn1',
           description: 'This is a Harmony NFT collenction stored on IPFS & Filecoin.',
-          image: new File([file], file.name, {type}),
+          image: file,
       }).then(result => { 
         addDoc(dbRef, {
-          timestamp: "Raja Tamil",
-          caption: "Canadte",
-          fileUrl: 'asd',
+          timestamp: "-",
+          caption: file.name,
+          fileUrl: `https://ipfs.io/ipfs/${result.data.image.href}/${file.name}`,
           size: '-',
         });
         console.log(result)
-        console.log(metadata.url)
+        console.log(result.data.image.href)
+        console.log(file.name)
         setUploading(false)
         setOpen(false)
       })
       return metadata;
+      console.log(metadata.url)
 
     } catch (error) {
       console.log("Could not save NFT to NFT.Storage - Aborted minting.");
       console.log(error);
     }
+    
 
     
   }

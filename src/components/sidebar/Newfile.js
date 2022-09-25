@@ -98,7 +98,7 @@ const Newfile = () => {
       
     const type = mime.getType(file.name)
     
-    const dbRef = collection(db, "myFiles");
+    const dbRef = collection(db, `${auth.currentUser.uid}`);
 
 
     const nftstorage = new NFTStorage({ token: NFT_STORAGE_KEY })

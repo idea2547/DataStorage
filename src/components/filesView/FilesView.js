@@ -4,15 +4,19 @@ import '../../styles/FilesView.css'
 import FileItem from './FileItem'
 import FileCard from './FileCard'
 import { doc, setDoc, addDoc, collection, getDocs, onSnapshot} from "firebase/firestore"
-
+import { auth } from '../../firebase.js';
 import { db } from '../../firebase'
+
+
+
+const user = auth.currentUser;
 
 function FilesView() {
     
     console.log('pass')
     const [files, setFiles] = useState([])
     console.log('pass')
-    const dbRef = collection(db, "myFiles");
+    const dbRef = collection(db, `${auth.currentUser.uid}`);
     console.log('pass')
     const dbSnapshot = getDocs(dbRef);
     console.log(dbSnapshot)

@@ -28,6 +28,7 @@ import {
 import Sidebar from '../../components/sidebar';
 import FilesView from '../../components/filesView/FilesView';
 import { auth } from '../../firebase.js';
+import { onAuthStateChanged } from "firebase/auth";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import '../../App.css'
 import { Formik, Field, Form } from "formik";
@@ -134,6 +135,8 @@ export default function Uploader(_isAuthenticated) {
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider).then((result) => {
         setUser(result.user)
+        console.log(result.user)
+        console.log("pass")
         
       })
 
@@ -141,6 +144,20 @@ export default function Uploader(_isAuthenticated) {
     
     
   }
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      const uid = user.uid;
+      console.log(uid);
+      console.log("change account");
+      // ...
+    } else {
+      // User is signed out
+      // ...
+    }
+  });
 
   const popUpLoading = 
                   <Modal
@@ -393,7 +410,7 @@ export default function Uploader(_isAuthenticated) {
         <Box flex="1">
           <AlertTitle>Success</AlertTitle>
           <AlertDescription display="block">
-            IPFS upload and mint complete.
+            Upload complete.
             <Box>
               <Link href={IPFSLinkImage} isExternal>
                 Verify metadata here <ExternalLinkIcon mx="2px" />
@@ -846,7 +863,7 @@ export default function Uploader(_isAuthenticated) {
     <div>
       <div className="app">
         {
-          user ? (
+          user ? 
             <>
               
               <div className="app__main">
@@ -854,12 +871,12 @@ export default function Uploader(_isAuthenticated) {
                 <FilesView />
               </div>
             </>
-          ) : (
+           : 
               <div className='app__login'>
                 {/* <img src={} alt="Google Drive" /> */}
                 <button onClick={handleLogin}>Log in to DStore with Google</button>
               </div>
-            )
+            
         }
       
 

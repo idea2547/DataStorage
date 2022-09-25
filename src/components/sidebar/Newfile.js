@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import AddIcon from '@material-ui/icons/Add';
 // Import the NFTStorage class and File constructor from the 'nft.storage' package
-import { NFTStorage, File, Blob } from 'nft.storage'
+import { NFTStorage, File, Blob } from 'nft.storage/dist/bundle.esm.min.js'
 // The 'mime' npm package helps us set the correct file type on our File objects
 import mime from 'mime'
 import path from 'path'
